@@ -1,0 +1,86 @@
+/* Ideally we would host our own fonts. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+:root {
+  --app-font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --app-primary: #1565D8;
+  --app-on-primary: #FFFFFF;
+  
+  --app-error: #DC2626;
+  --app-on-error: #FFFFFF;
+  
+  --app-background: #FFFFFF;
+  --app-on-background: #000000;
+  --app-on-background-dimmed: #696F79;
+  --app-on-background-muted: #8692A6;
+  --app-on-background-border: #F5F5F5;
+  
+  --app-input-border: #8692A6;
+  --app-destructive: #DC2626;
+}
+
+:root[data-theme="dark"] {
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+
+  }
+}
+
+/* Tailwind theme variables. */
+@theme {
+  --font-sans: var(--app-font-family);
+  
+  --color-primary: var(--app-primary);
+  --color-on-primary: var(--app-on-primary);
+  
+  --color-error: var(--app-error);
+  --color-on-error: var(--app-on-error);
+  
+  --color-background: var(--app-background);
+  --color-on-background: var(--app-on-background);
+  --color-on-background-dimmed: var(--app-on-background-dimmed);
+  --color-on-background-muted: var(--app-on-background-muted);
+  --color-on-background-border: var(--app-on-background-border);
+  
+  --color-input-border: var(--app-input-border);
+}
+
+@layer base {
+  /* Make all buttons have a pointer cursor. Refer to: https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--app-font-family);
+  background-color: var(--app-background);
+  color: var(--app-on-background);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--app-primary);
+  text-decoration: underline;
+}
