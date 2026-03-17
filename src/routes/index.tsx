@@ -3,6 +3,13 @@ import AuthenticationUtil from '#/utils/authentication'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
+  head: () => ({
+    meta: [
+      {
+        title: 'Home | React Onboarding Example',
+      },
+    ],
+  }),
   component: RouteComponent,
 })
 

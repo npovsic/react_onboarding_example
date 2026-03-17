@@ -1,4 +1,4 @@
-import { Outlet, createRootRouteWithContext, redirect } from '@tanstack/react-router'
+import { HeadContent, Outlet, createRootRouteWithContext, redirect } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
@@ -48,7 +48,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 function RootComponent() {
   return (
     <>
+      <HeadContent />
+      
       <Outlet />
+      
       <TanStackDevtools
         config={{
           position: 'bottom-right',
