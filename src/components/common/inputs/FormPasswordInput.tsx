@@ -29,19 +29,21 @@ export function FormPasswordInput({
           {required && <span aria-hidden>*</span>}
         </label>
       )}
-      <input
-        {...register(inputId)}
-        id={inputId}
-        type={type}
-        placeholder={placeholder}
-        aria-required={required}
-        aria-invalid={error != null}
-        aria-describedby={error ? `${inputId}-error` : undefined}
-        className={`rounded-lg border bg-transparent px-6 py-4 text-sm text-on-background placeholder:text-on-background-dimmed focus:outline-none focus:ring-1 focus:ring-primary ${error ? 'border-destructive' : 'border-input-border'} ${className}`}
-      />
-      <button type="button" onClick={toggleType}>
-        {type === 'password' ? 'Show' : 'Hide'}
-      </button>
+      <div className={`input-group flex rounded-lg border bg-transparent px-6 py-4 text-sm text-on-background placeholder:text-on-background-dimmed focus-within:outline-none focus-within:ring-1 focus-within:ring-primary ${error ? 'border-destructive' : 'border-input-border'} ${className}`}>
+        <input
+          {...register(inputId)}
+          id={inputId}
+          type={type}
+          placeholder={placeholder}
+          aria-required={required}
+          aria-invalid={error != null}
+          aria-describedby={error ? `${inputId}-error` : undefined}
+          className="flex-1 min-w-0 outline-none!"
+        />
+        <button type="button" onClick={toggleType}>
+          {type === 'password' ? 'Show' : 'Hide'}
+        </button>
+      </div>
       {error != null && (
         <p id={`${inputId}-error`} className="text-sm font-medium text-error" role="alert">
           {error}
