@@ -1,4 +1,5 @@
 import { PrimaryButton } from "#/components/common/buttons/PrimaryButton";
+import { FormSelect } from "#/components/common/inputs/FormSelect";
 import { FormTextInput } from "#/components/common/inputs/FormTextInput";
 import { InfoSafelySecured } from "#/components/logged-out/InfoSafelySecured";
 import { LoggedOutShell } from "#/components/logged-out/LoggedOutShell";
@@ -53,7 +54,7 @@ function RegisterCompleteProfileComponent() {
     <LoggedOutShell
       header={
           <OnboardingHeader
-            navigateBackTo="/register/individual"
+            navigateBackTo="/register/account"
             currentStep={2}
             totalSteps={3}
             title="Residency Info"
@@ -76,12 +77,17 @@ function RegisterCompleteProfileComponent() {
             autoFocus
           />
 
-          <FormTextInput
+          <FormSelect
             id="country"
             label="Country"
-            placeholder="Please select"
             error={errors.country}
             required
+            placeholder="Select your country"
+            options={[
+              { label: 'Slovenia', value: 'SL' },
+              { label: 'United States', value: 'US' },
+              { label: 'England', value: 'EN' },
+            ]}
           />
 
           <PrimaryButton type="submit" className="w-full mt-4">

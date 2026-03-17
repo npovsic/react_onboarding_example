@@ -25,6 +25,9 @@ function LoggedOutLayoutComponent() {
           </p>
           
           <IconQuoteEnd className="w-[32px] h-[32px] mt-16 text-on-primary self-end" />
+          
+          {/* A small hack to center the text shown above. */}
+          <SvgOnboardingDots className="opacity-0 w-[60px] h-[56px] text-tertiary self-end mx-8 mt-16" />
         </div>
       </div>
       

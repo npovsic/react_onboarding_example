@@ -29,7 +29,7 @@ export function FormPasswordInput({
           {required && <span aria-hidden>*</span>}
         </label>
       )}
-      <div className={`input-group flex rounded-lg border bg-transparent px-6 py-4 text-sm text-on-background placeholder:text-on-background-dimmed focus-within:outline-none focus-within:ring-1 focus-within:ring-primary ${error ? 'border-destructive' : 'border-input-border'} ${className}`}>
+      <div className={`input-group flex rounded-lg border bg-transparent text-sm text-on-background placeholder:text-on-background-dimmed focus-within:outline-none focus-within:ring-1 focus-within:ring-primary ${error ? 'border-destructive' : 'border-input-border'} ${className}`}>
         <input
           {...register(inputId)}
           id={inputId}
@@ -38,9 +38,9 @@ export function FormPasswordInput({
           aria-required={required}
           aria-invalid={error != null}
           aria-describedby={error ? `${inputId}-error` : undefined}
-          className="flex-1 min-w-0 outline-none!"
+          className="flex-1 min-w-0 outline-none! ps-6 py-4"
         />
-        <button className="ms-4 text-on-background-dimmed" type="button" onClick={toggleType}>
+        <button className="text-on-background-dimmed p-4" type="button" onClick={toggleType}>
           {type === 'password' ? 'Show' : 'Hide'}
         </button>
       </div>

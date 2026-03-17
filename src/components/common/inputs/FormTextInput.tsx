@@ -19,7 +19,7 @@ export function FormTextInput({
   const inputId = idProp ?? generatedId
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       {label != null && (
         <label htmlFor={inputId} className="text-base font-medium text-on-background-dimmed">
           {label}

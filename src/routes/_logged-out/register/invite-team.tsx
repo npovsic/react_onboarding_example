@@ -7,38 +7,63 @@ import { LoggedOutShell } from '#/components/logged-out/LoggedOutShell'
 import { OnboardingHeader } from '#/components/logged-out/OnboardingHeader'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
-import { FormProvider, useForm, type FieldValues } from "react-hook-form";
-import { z } from "zod";
+import { FormProvider, useForm, type FieldValues } from 'react-hook-form'
+import { z } from 'zod'
+
+interface TeamMember {
+  index: number
+  email: string
+}
 
 export const Route = createFileRoute('/_logged-out/register/invite-team')({
   component: RegisterInviteTeamComponent,
 })
 
-const registerInviteTeamSchema = z.object({
-  teamMemberEmail: z.email('Invalid email address'),
-})
+const teamMemberSchema = z
+  .object({})
+  .catchall(z.email('Invalid email address'))
+
+const maxNumberOfTeamMembers = 5
 
 function RegisterInviteTeamComponent() {
   const methods = useForm();
   
   const navigate = useNavigate()
   
-  const [teamMembers, setTeamMembers] = useState<string[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
   
-  const [errors, setErrors] = useState<{ teamMemberEmail?: string }>({});
+  const [errors, setErrors] = useState<Record<string, string>>({})
   
-  const addTeamMember = (data: FieldValues) => {
-    setErrors({})
+  const addNewTeamMember = () => {
+    if (teamMembers.length >= maxNumberOfTeamMembers) {
+      return
+    }
     
-    const result = registerInviteTeamSchema.safeParse(data)
+    setTeamMembers([...teamMembers, { index: teamMembers.length, email: '' }])
+  }
+  
+  const removeTeamMember = (teamMember: TeamMember) => {
+    setTeamMembers(teamMembers.filter((member) => member.index !== teamMember.index))
+  }
+  
+  const onSubmit = (data: FieldValues) => {
+    setErrors({})
 
-    if (!result.success) {
-      const fieldErrors: { teamMemberEmail?: string } = {}
+    if (teamMembers.length === 0) {
+      navigate({ to: '/register/welcome' })
       
+      return
+    }
+    
+    const result = teamMemberSchema.safeParse(data)
+    
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {}
+
       for (const issue of result.error.issues) {
         const path = issue.path[0]
-        
-        if (typeof path === 'string' && (path === 'teamMemberEmail') && !fieldErrors[path]) {
+
+        if (typeof path === 'string' && path.startsWith('teamMemberEmail-') && !fieldErrors[path]) {
           fieldErrors[path] = issue.message
         }
       }
@@ -48,17 +73,23 @@ function RegisterInviteTeamComponent() {
       return
     }
     
-    methods.reset();
+    const emailMismatches: Record<string, string> = {}
     
-    if (teamMembers.includes(data.teamMemberEmail)) {
+    for (const teamMember of teamMembers) {
+      const duplicateEmail = teamMembers.find((member) => member.email === teamMember.email && member.index !== teamMember.index)
+      
+      if (duplicateEmail) {
+        emailMismatches[`teamMemberEmail-${teamMember.index}`] = 'Team member with this email was already added'
+      }
+    }
+    
+    if (Object.keys(emailMismatches).length > 0) {
+      setErrors(emailMismatches)
+      
       return
     }
     
-    setTeamMembers([...teamMembers, data.teamMemberEmail])
-  }
-  
-  const removeTeamMember = (teamMember: string) => {
-    setTeamMembers(teamMembers.filter((member) => member !== teamMember))
+    navigate({ to: '/register/welcome' })
   }
   
   return (
@@ -76,7 +107,7 @@ function RegisterInviteTeamComponent() {
     >
       <FormProvider {...methods}>
         <form
-          onSubmit={methods.handleSubmit(addTeamMember)}
+          onSubmit={methods.handleSubmit(onSubmit)}
           className="flex flex-col gap-4"
         >
           {teamMembers.length > 0 && (
@@ -86,31 +117,35 @@ function RegisterInviteTeamComponent() {
           )}
           
           {teamMembers.map((teamMember) => (
-            <div key={teamMember} className="flex items-center gap-2">
-              <div key={teamMember} className="min-w-0 grow flex items-center gap-2 bg-surface rounded-lg p-4 border border-primary shadow-lg text-sm">
-                <p className="text-on-background">{teamMember}</p>
-              </div>
+            <div key={teamMember.index} className='flex flex-col gap-2'>
+              <div className="flex items-center gap-2 w-full">
+                <FormTextInput
+                  id={`teamMemberEmail-${teamMember.index}`}
+                  placeholder="Enter your team member's email address"
+                  type="email"
+                  required
+                />
               
-              <button type="button" className="text-error font-medium" onClick={() => removeTeamMember(teamMember)}>
-                <IconDelete className="w-[24px] h-[24px]" />
-              </button>
+                <button type="button" className="text-error font-medium hover:bg-error/10 rounded-full p-2 transition-colors duration-200" onClick={() => removeTeamMember(teamMember)}>
+                  <IconDelete className="w-[24px] h-[24px]" />
+                </button>
+            </div>
+            
+              {/* Why is this here instead of in the FormTextInput component? Because the delete button needs to line up with the input,
+              and the error message inside the FormTextInput breaks the layout. */}
+              {errors[`teamMemberEmail-${teamMember.index}`] && (
+                <p className="text-sm font-medium text-error">{errors[`teamMemberEmail-${teamMember.index}`]}</p>
+              )}
             </div>
           ))}
 
-          <FormTextInput
-            id="teamMemberEmail"
-            placeholder="Enter your team member's email address"
-            error={errors.teamMemberEmail}
-            type="email"
-          />
-          
-          <button type="submit" className="flex items-center gap-2 text-primary font-medium">
+          <button className="flex items-center gap-2 text-primary font-medium mt-4 disabled:opacity-50 disabled:cursor-not-allowed" disabled={teamMembers.length >= maxNumberOfTeamMembers} type="button" onClick={() => addNewTeamMember()}>
             <IconAdd className="w-[16px] h-[16px]" />
             
-            Add Teammate
+            Add Teammate {teamMembers.length ? `${teamMembers.length} / ${maxNumberOfTeamMembers}` : ''}
           </button>
 
-          <PrimaryButton type="button" className="w-full mt-4" onClick={() => navigate({ to: '/register/welcome' })}>
+          <PrimaryButton type="submit" className="w-full mt-4">
             {teamMembers.length > 0 ? 'Save & Finish' : 'Finish without a team'}
           </PrimaryButton>
           
