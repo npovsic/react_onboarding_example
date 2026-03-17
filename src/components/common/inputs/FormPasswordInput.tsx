@@ -40,7 +40,7 @@ export function FormPasswordInput({
           aria-describedby={error ? `${inputId}-error` : undefined}
           className="flex-1 min-w-0 outline-none!"
         />
-        <button type="button" onClick={toggleType}>
+        <button className="ms-4 text-on-background-dimmed" type="button" onClick={toggleType}>
           {type === 'password' ? 'Show' : 'Hide'}
         </button>
       </div>
