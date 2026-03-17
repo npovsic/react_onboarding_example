@@ -34,3 +34,7 @@ This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
 ## Routing
 
 This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
+
+## State Management
+
+This project uses [Zustand](https://zustand-demo.pmnd.rs/) for state management.
