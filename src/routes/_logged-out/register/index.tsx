@@ -18,7 +18,7 @@ function RegisterSelectAccountTypeComponent() {
     description="To begin this journey, tell us what type of account you’d be opening."
     >
       <div className="flex flex-col gap-4">
-          <Link to="/register/individual" className="flex items-center no-underline! p-8 gap-8 bg-surface rounded-lg shadow-lg hover:bg-surface-primary hover:ring-1 hover:ring-primary transition-all duration-150 outline-none focus-visible:bg-surface-primary focus-visible:ring-1 focus-visible:ring-primary">
+          <Link to="/register/account" className="flex items-center no-underline! p-8 gap-8 bg-surface rounded-lg shadow-lg hover:bg-surface-primary hover:ring-1 hover:ring-primary transition-all duration-150 outline-none focus-visible:bg-surface-primary focus-visible:ring-1 focus-visible:ring-primary">
             <SvgIndividualAccountType className="w-[52px] h-[52px] text-primary" />
             
             <div className="flex flex-col min-w-0 grow">
@@ -29,18 +29,16 @@ function RegisterSelectAccountTypeComponent() {
             <IconArrowRight className="w-[24px] h-[24px] text-primary" />
           </Link>
           
-          <button disabled={true} className="flex items-center text-start p-8 gap-8 bg-surface rounded-lg shadow-lg opacity-50">
-            <SvgBusinessAccountType className="w-[52px] h-[52px]" />
-
+          <Link to="/register/account" className="flex items-center no-underline! p-8 gap-8 bg-surface rounded-lg shadow-lg hover:bg-surface-primary hover:ring-1 hover:ring-primary transition-all duration-150 outline-none focus-visible:bg-surface-primary focus-visible:ring-1 focus-visible:ring-primary">
+            <SvgBusinessAccountType className="w-[52px] h-[52px] text-primary" />
+            
             <div className="flex flex-col min-w-0 grow">
               <p className="text-base font-medium text-on-background">Business</p>
               <p className="text-base text-on-background-dimmed">For your business</p>
             </div>
             
-            <div className="flex items-center justify-end">
-              <p className="text-sm text-on-background-dimmed">Coming soon</p>
-            </div>
-          </button>
+            <IconArrowRight className="w-[24px] h-[24px] text-primary" />
+          </Link>
         </div>
     </LoggedOutShell>
   )

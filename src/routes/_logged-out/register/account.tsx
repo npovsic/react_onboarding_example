@@ -1,28 +1,26 @@
 import { PrimaryButton } from "#/components/common/buttons/PrimaryButton";
-import { IconChevronLeft } from "#/components/common/icons/IconChevronLeft";
-import { IconLock } from "#/components/common/icons/IconLock";
 import { FormPasswordInput } from "#/components/common/inputs/FormPasswordInput";
 import { FormTextInput } from "#/components/common/inputs/FormTextInput";
 import { InfoSafelySecured } from "#/components/logged-out/InfoSafelySecured";
 import { LoggedOutShell } from "#/components/logged-out/LoggedOutShell";
 import { OnboardingHeader } from "#/components/logged-out/OnboardingHeader";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { FormProvider, useForm, type FieldValues } from "react-hook-form";
 import { z } from "zod";
 
-export const Route = createFileRoute("/_logged-out/register/individual")({
-  component: RegisterIndividualComponent,
+export const Route = createFileRoute("/_logged-out/register/account")({
+  component: RegisterAccountComponent,
 });
 
-const registerIndividualSchema = z.object({
+const registerAccountSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   email: z.email('Invalid email address'),
   password: z.string().min(1, 'Password is required'),
 })
 
 
-function RegisterIndividualComponent() {
+function RegisterAccountComponent() {
   const methods = useForm();
   
   const navigate = useNavigate()
@@ -32,7 +30,7 @@ function RegisterIndividualComponent() {
   const handleRegistration = (data: FieldValues) => {
     setErrors({})
     
-    const result = registerIndividualSchema.safeParse(data)
+    const result = registerAccountSchema.safeParse(data)
 
     if (!result.success) {
       const fieldErrors: { fullName?: string; email?: string; password?: string } = {}

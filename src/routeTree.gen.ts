@@ -15,8 +15,8 @@ import { Route as LoggedOutLoginRouteImport } from './routes/_logged-out/login'
 import { Route as LoggedOutRegisterIndexRouteImport } from './routes/_logged-out/register/index'
 import { Route as LoggedOutRegisterWelcomeRouteImport } from './routes/_logged-out/register/welcome'
 import { Route as LoggedOutRegisterInviteTeamRouteImport } from './routes/_logged-out/register/invite-team'
-import { Route as LoggedOutRegisterIndividualRouteImport } from './routes/_logged-out/register/individual'
 import { Route as LoggedOutRegisterCompleteProfileRouteImport } from './routes/_logged-out/register/complete-profile'
+import { Route as LoggedOutRegisterAccountRouteImport } from './routes/_logged-out/register/account'
 
 const LoggedOutRouteRoute = LoggedOutRouteRouteImport.update({
   id: '/_logged-out',
@@ -49,24 +49,24 @@ const LoggedOutRegisterInviteTeamRoute =
     path: '/register/invite-team',
     getParentRoute: () => LoggedOutRouteRoute,
   } as any)
-const LoggedOutRegisterIndividualRoute =
-  LoggedOutRegisterIndividualRouteImport.update({
-    id: '/register/individual',
-    path: '/register/individual',
-    getParentRoute: () => LoggedOutRouteRoute,
-  } as any)
 const LoggedOutRegisterCompleteProfileRoute =
   LoggedOutRegisterCompleteProfileRouteImport.update({
     id: '/register/complete-profile',
     path: '/register/complete-profile',
     getParentRoute: () => LoggedOutRouteRoute,
   } as any)
+const LoggedOutRegisterAccountRoute =
+  LoggedOutRegisterAccountRouteImport.update({
+    id: '/register/account',
+    path: '/register/account',
+    getParentRoute: () => LoggedOutRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoggedOutLoginRoute
+  '/register/account': typeof LoggedOutRegisterAccountRoute
   '/register/complete-profile': typeof LoggedOutRegisterCompleteProfileRoute
-  '/register/individual': typeof LoggedOutRegisterIndividualRoute
   '/register/invite-team': typeof LoggedOutRegisterInviteTeamRoute
   '/register/welcome': typeof LoggedOutRegisterWelcomeRoute
   '/register/': typeof LoggedOutRegisterIndexRoute
@@ -74,8 +74,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoggedOutLoginRoute
+  '/register/account': typeof LoggedOutRegisterAccountRoute
   '/register/complete-profile': typeof LoggedOutRegisterCompleteProfileRoute
-  '/register/individual': typeof LoggedOutRegisterIndividualRoute
   '/register/invite-team': typeof LoggedOutRegisterInviteTeamRoute
   '/register/welcome': typeof LoggedOutRegisterWelcomeRoute
   '/register': typeof LoggedOutRegisterIndexRoute
@@ -85,8 +85,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_logged-out': typeof LoggedOutRouteRouteWithChildren
   '/_logged-out/login': typeof LoggedOutLoginRoute
+  '/_logged-out/register/account': typeof LoggedOutRegisterAccountRoute
   '/_logged-out/register/complete-profile': typeof LoggedOutRegisterCompleteProfileRoute
-  '/_logged-out/register/individual': typeof LoggedOutRegisterIndividualRoute
   '/_logged-out/register/invite-team': typeof LoggedOutRegisterInviteTeamRoute
   '/_logged-out/register/welcome': typeof LoggedOutRegisterWelcomeRoute
   '/_logged-out/register/': typeof LoggedOutRegisterIndexRoute
@@ -96,8 +96,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/register/account'
     | '/register/complete-profile'
-    | '/register/individual'
     | '/register/invite-team'
     | '/register/welcome'
     | '/register/'
@@ -105,8 +105,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/register/account'
     | '/register/complete-profile'
-    | '/register/individual'
     | '/register/invite-team'
     | '/register/welcome'
     | '/register'
@@ -115,8 +115,8 @@ export interface FileRouteTypes {
     | '/'
     | '/_logged-out'
     | '/_logged-out/login'
+    | '/_logged-out/register/account'
     | '/_logged-out/register/complete-profile'
-    | '/_logged-out/register/individual'
     | '/_logged-out/register/invite-team'
     | '/_logged-out/register/welcome'
     | '/_logged-out/register/'
@@ -171,13 +171,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoggedOutRegisterInviteTeamRouteImport
       parentRoute: typeof LoggedOutRouteRoute
     }
-    '/_logged-out/register/individual': {
-      id: '/_logged-out/register/individual'
-      path: '/register/individual'
-      fullPath: '/register/individual'
-      preLoaderRoute: typeof LoggedOutRegisterIndividualRouteImport
-      parentRoute: typeof LoggedOutRouteRoute
-    }
     '/_logged-out/register/complete-profile': {
       id: '/_logged-out/register/complete-profile'
       path: '/register/complete-profile'
@@ -185,13 +178,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoggedOutRegisterCompleteProfileRouteImport
       parentRoute: typeof LoggedOutRouteRoute
     }
+    '/_logged-out/register/account': {
+      id: '/_logged-out/register/account'
+      path: '/register/account'
+      fullPath: '/register/account'
+      preLoaderRoute: typeof LoggedOutRegisterAccountRouteImport
+      parentRoute: typeof LoggedOutRouteRoute
+    }
   }
 }
 
 interface LoggedOutRouteRouteChildren {
   LoggedOutLoginRoute: typeof LoggedOutLoginRoute
+  LoggedOutRegisterAccountRoute: typeof LoggedOutRegisterAccountRoute
   LoggedOutRegisterCompleteProfileRoute: typeof LoggedOutRegisterCompleteProfileRoute
-  LoggedOutRegisterIndividualRoute: typeof LoggedOutRegisterIndividualRoute
   LoggedOutRegisterInviteTeamRoute: typeof LoggedOutRegisterInviteTeamRoute
   LoggedOutRegisterWelcomeRoute: typeof LoggedOutRegisterWelcomeRoute
   LoggedOutRegisterIndexRoute: typeof LoggedOutRegisterIndexRoute
@@ -199,8 +199,8 @@ interface LoggedOutRouteRouteChildren {
 
 const LoggedOutRouteRouteChildren: LoggedOutRouteRouteChildren = {
   LoggedOutLoginRoute: LoggedOutLoginRoute,
+  LoggedOutRegisterAccountRoute: LoggedOutRegisterAccountRoute,
   LoggedOutRegisterCompleteProfileRoute: LoggedOutRegisterCompleteProfileRoute,
-  LoggedOutRegisterIndividualRoute: LoggedOutRegisterIndividualRoute,
   LoggedOutRegisterInviteTeamRoute: LoggedOutRegisterInviteTeamRoute,
   LoggedOutRegisterWelcomeRoute: LoggedOutRegisterWelcomeRoute,
   LoggedOutRegisterIndexRoute: LoggedOutRegisterIndexRoute,
