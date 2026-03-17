@@ -1,13 +1,25 @@
 import { PrimaryButton } from '#/components/common/buttons/PrimaryButton'
 import { SvgSuccess } from '#/components/common/svgs/SvgSuccess'
+import { useRegisterStore } from '#/state/registration/registrationStore'
 import AuthenticationUtil from '#/utils/authentication'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_logged-out/register/welcome')({
   component: RegisterWelcomeComponent,
+  loader: async ({ context }) => {
+    const api = context.api
+    
+    const response = await api.register({
+      
+    })
+    
+    return response
+  },
 })
 
 function RegisterWelcomeComponent() {
+  const payload = useRegisterStore((state) => state.payload);
+  
   const navigate = useNavigate()
   
   const enterApp = () => {
@@ -19,6 +31,8 @@ function RegisterWelcomeComponent() {
   return (
     <div className="flex flex-col gap-4 items-center justify-center m-auto">
       <SvgSuccess className="w-[150px] h-[150px] text-primary" />
+      
+      <code className="max-w-[400px] wrap-break-word">{payload ? JSON.stringify(payload, null, 2) : <div>No payload</div>}</code>
       
       <p className="text-3xl font-bold text-on-background">Success!</p>
       

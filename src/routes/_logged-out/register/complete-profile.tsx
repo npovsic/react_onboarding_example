@@ -4,6 +4,7 @@ import { FormTextInput } from "#/components/common/inputs/FormTextInput";
 import { InfoSafelySecured } from "#/components/logged-out/InfoSafelySecured";
 import { LoggedOutShell } from "#/components/logged-out/LoggedOutShell";
 import { OnboardingHeader } from "#/components/logged-out/OnboardingHeader";
+import { useRegisterStore } from "#/state/registration/registrationStore";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { FormProvider, useForm, type FieldValues } from "react-hook-form";
@@ -20,6 +21,8 @@ const registerIndividualSchema = z.object({
 
 
 function RegisterCompleteProfileComponent() {
+  const updatePayload = useRegisterStore((state) => state.updatePayload);
+  
   const methods = useForm();
   
   const navigate = useNavigate()
@@ -46,6 +49,11 @@ function RegisterCompleteProfileComponent() {
       
       return
     }
+
+    updatePayload({
+      address: data.address,
+      country: data.country,
+    })
 
     navigate({ to: '/register/invite-team' })
   }

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoggedOutRouteRouteImport } from './routes/_logged-out/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoggedOutLoginRouteImport } from './routes/_logged-out/login'
+import { Route as LoggedOutRegisterRouteRouteImport } from './routes/_logged-out/register/route'
 import { Route as LoggedOutRegisterIndexRouteImport } from './routes/_logged-out/register/index'
 import { Route as LoggedOutRegisterWelcomeRouteImport } from './routes/_logged-out/register/welcome'
 import { Route as LoggedOutRegisterInviteTeamRouteImport } from './routes/_logged-out/register/invite-team'
@@ -32,38 +33,44 @@ const LoggedOutLoginRoute = LoggedOutLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => LoggedOutRouteRoute,
 } as any)
-const LoggedOutRegisterIndexRoute = LoggedOutRegisterIndexRouteImport.update({
-  id: '/register/',
-  path: '/register/',
+const LoggedOutRegisterRouteRoute = LoggedOutRegisterRouteRouteImport.update({
+  id: '/register',
+  path: '/register',
   getParentRoute: () => LoggedOutRouteRoute,
+} as any)
+const LoggedOutRegisterIndexRoute = LoggedOutRegisterIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LoggedOutRegisterRouteRoute,
 } as any)
 const LoggedOutRegisterWelcomeRoute =
   LoggedOutRegisterWelcomeRouteImport.update({
-    id: '/register/welcome',
-    path: '/register/welcome',
-    getParentRoute: () => LoggedOutRouteRoute,
+    id: '/welcome',
+    path: '/welcome',
+    getParentRoute: () => LoggedOutRegisterRouteRoute,
   } as any)
 const LoggedOutRegisterInviteTeamRoute =
   LoggedOutRegisterInviteTeamRouteImport.update({
-    id: '/register/invite-team',
-    path: '/register/invite-team',
-    getParentRoute: () => LoggedOutRouteRoute,
+    id: '/invite-team',
+    path: '/invite-team',
+    getParentRoute: () => LoggedOutRegisterRouteRoute,
   } as any)
 const LoggedOutRegisterCompleteProfileRoute =
   LoggedOutRegisterCompleteProfileRouteImport.update({
-    id: '/register/complete-profile',
-    path: '/register/complete-profile',
-    getParentRoute: () => LoggedOutRouteRoute,
+    id: '/complete-profile',
+    path: '/complete-profile',
+    getParentRoute: () => LoggedOutRegisterRouteRoute,
   } as any)
 const LoggedOutRegisterAccountRoute =
   LoggedOutRegisterAccountRouteImport.update({
-    id: '/register/account',
-    path: '/register/account',
-    getParentRoute: () => LoggedOutRouteRoute,
+    id: '/account',
+    path: '/account',
+    getParentRoute: () => LoggedOutRegisterRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/register': typeof LoggedOutRegisterRouteRouteWithChildren
   '/login': typeof LoggedOutLoginRoute
   '/register/account': typeof LoggedOutRegisterAccountRoute
   '/register/complete-profile': typeof LoggedOutRegisterCompleteProfileRoute
@@ -84,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_logged-out': typeof LoggedOutRouteRouteWithChildren
+  '/_logged-out/register': typeof LoggedOutRegisterRouteRouteWithChildren
   '/_logged-out/login': typeof LoggedOutLoginRoute
   '/_logged-out/register/account': typeof LoggedOutRegisterAccountRoute
   '/_logged-out/register/complete-profile': typeof LoggedOutRegisterCompleteProfileRoute
@@ -95,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/register'
     | '/login'
     | '/register/account'
     | '/register/complete-profile'
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_logged-out'
+    | '/_logged-out/register'
     | '/_logged-out/login'
     | '/_logged-out/register/account'
     | '/_logged-out/register/complete-profile'
@@ -150,46 +160,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoggedOutLoginRouteImport
       parentRoute: typeof LoggedOutRouteRoute
     }
+    '/_logged-out/register': {
+      id: '/_logged-out/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof LoggedOutRegisterRouteRouteImport
+      parentRoute: typeof LoggedOutRouteRoute
+    }
     '/_logged-out/register/': {
       id: '/_logged-out/register/'
-      path: '/register'
+      path: '/'
       fullPath: '/register/'
       preLoaderRoute: typeof LoggedOutRegisterIndexRouteImport
-      parentRoute: typeof LoggedOutRouteRoute
+      parentRoute: typeof LoggedOutRegisterRouteRoute
     }
     '/_logged-out/register/welcome': {
       id: '/_logged-out/register/welcome'
-      path: '/register/welcome'
+      path: '/welcome'
       fullPath: '/register/welcome'
       preLoaderRoute: typeof LoggedOutRegisterWelcomeRouteImport
-      parentRoute: typeof LoggedOutRouteRoute
+      parentRoute: typeof LoggedOutRegisterRouteRoute
     }
     '/_logged-out/register/invite-team': {
       id: '/_logged-out/register/invite-team'
-      path: '/register/invite-team'
+      path: '/invite-team'
       fullPath: '/register/invite-team'
       preLoaderRoute: typeof LoggedOutRegisterInviteTeamRouteImport
-      parentRoute: typeof LoggedOutRouteRoute
+      parentRoute: typeof LoggedOutRegisterRouteRoute
     }
     '/_logged-out/register/complete-profile': {
       id: '/_logged-out/register/complete-profile'
-      path: '/register/complete-profile'
+      path: '/complete-profile'
       fullPath: '/register/complete-profile'
       preLoaderRoute: typeof LoggedOutRegisterCompleteProfileRouteImport
-      parentRoute: typeof LoggedOutRouteRoute
+      parentRoute: typeof LoggedOutRegisterRouteRoute
     }
     '/_logged-out/register/account': {
       id: '/_logged-out/register/account'
-      path: '/register/account'
+      path: '/account'
       fullPath: '/register/account'
       preLoaderRoute: typeof LoggedOutRegisterAccountRouteImport
-      parentRoute: typeof LoggedOutRouteRoute
+      parentRoute: typeof LoggedOutRegisterRouteRoute
     }
   }
 }
 
-interface LoggedOutRouteRouteChildren {
-  LoggedOutLoginRoute: typeof LoggedOutLoginRoute
+interface LoggedOutRegisterRouteRouteChildren {
   LoggedOutRegisterAccountRoute: typeof LoggedOutRegisterAccountRoute
   LoggedOutRegisterCompleteProfileRoute: typeof LoggedOutRegisterCompleteProfileRoute
   LoggedOutRegisterInviteTeamRoute: typeof LoggedOutRegisterInviteTeamRoute
@@ -197,13 +213,29 @@ interface LoggedOutRouteRouteChildren {
   LoggedOutRegisterIndexRoute: typeof LoggedOutRegisterIndexRoute
 }
 
+const LoggedOutRegisterRouteRouteChildren: LoggedOutRegisterRouteRouteChildren =
+  {
+    LoggedOutRegisterAccountRoute: LoggedOutRegisterAccountRoute,
+    LoggedOutRegisterCompleteProfileRoute:
+      LoggedOutRegisterCompleteProfileRoute,
+    LoggedOutRegisterInviteTeamRoute: LoggedOutRegisterInviteTeamRoute,
+    LoggedOutRegisterWelcomeRoute: LoggedOutRegisterWelcomeRoute,
+    LoggedOutRegisterIndexRoute: LoggedOutRegisterIndexRoute,
+  }
+
+const LoggedOutRegisterRouteRouteWithChildren =
+  LoggedOutRegisterRouteRoute._addFileChildren(
+    LoggedOutRegisterRouteRouteChildren,
+  )
+
+interface LoggedOutRouteRouteChildren {
+  LoggedOutRegisterRouteRoute: typeof LoggedOutRegisterRouteRouteWithChildren
+  LoggedOutLoginRoute: typeof LoggedOutLoginRoute
+}
+
 const LoggedOutRouteRouteChildren: LoggedOutRouteRouteChildren = {
+  LoggedOutRegisterRouteRoute: LoggedOutRegisterRouteRouteWithChildren,
   LoggedOutLoginRoute: LoggedOutLoginRoute,
-  LoggedOutRegisterAccountRoute: LoggedOutRegisterAccountRoute,
-  LoggedOutRegisterCompleteProfileRoute: LoggedOutRegisterCompleteProfileRoute,
-  LoggedOutRegisterInviteTeamRoute: LoggedOutRegisterInviteTeamRoute,
-  LoggedOutRegisterWelcomeRoute: LoggedOutRegisterWelcomeRoute,
-  LoggedOutRegisterIndexRoute: LoggedOutRegisterIndexRoute,
 }
 
 const LoggedOutRouteRouteWithChildren = LoggedOutRouteRoute._addFileChildren(

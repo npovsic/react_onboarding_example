@@ -2,6 +2,8 @@ import { SvgBusinessAccountType } from "#/components/common/svgs/SvgBusinessAcco
 import { SvgIndividualAccountType } from "#/components/common/svgs/SvgIndividualAccountType";
 import { LoggedOutShell } from "#/components/logged-out/LoggedOutShell";
 import { SelectAccountTypeButton } from "#/components/logged-out/select-account-type/SelectAccountTypeButton";
+import { useRegisterStore } from "#/state/registration/registrationStore";
+import { RegistrationAccountType } from "#/types/data/registration";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_logged-out/register/")({
@@ -9,6 +11,8 @@ export const Route = createFileRoute("/_logged-out/register/")({
 });
 
 function RegisterSelectAccountTypeComponent() {
+  const replacePayload = useRegisterStore((state) => state.replacePayload);
+  
   return (
     <LoggedOutShell
       header={
@@ -33,6 +37,7 @@ function RegisterSelectAccountTypeComponent() {
           icon={
             <SvgIndividualAccountType className="w-[52px] h-[52px] text-primary" />
           }
+          onSelect={() => replacePayload({ accountType: RegistrationAccountType.INDIVIDUAL })}
         />
         
         <SelectAccountTypeButton
@@ -42,6 +47,7 @@ function RegisterSelectAccountTypeComponent() {
           icon={
             <SvgBusinessAccountType className="w-[52px] h-[52px] text-primary" />
           }
+          onSelect={() => replacePayload({ accountType: RegistrationAccountType.BUSINESS })}
         />
       </div>
     </LoggedOutShell>

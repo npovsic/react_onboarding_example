@@ -1,11 +1,16 @@
-import { Outlet, createRootRoute, redirect } from '@tanstack/react-router'
+import { Outlet, createRootRouteWithContext, redirect } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import '../styles.css'
 import AuthenticationUtil from '#/utils/authentication'
+import type ApiService from '#/services/api'
 
-export const Route = createRootRoute({
+interface RouterContext {
+  api: ApiService
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   // Always run before the root component is rendered.
   beforeLoad: async ({ matches }) => {  
     const isLoggedOutRoute = matches.find((match) => match.routeId.startsWith('/_logged-out'))

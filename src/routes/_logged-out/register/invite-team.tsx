@@ -5,14 +5,16 @@ import { FormTextInput } from '#/components/common/inputs/FormTextInput'
 import { InfoSafelySecured } from '#/components/logged-out/InfoSafelySecured'
 import { LoggedOutShell } from '#/components/logged-out/LoggedOutShell'
 import { OnboardingHeader } from '#/components/logged-out/OnboardingHeader'
+import { useRegisterStore } from '#/state/registration/registrationStore'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form'
 import { z } from 'zod'
 
 interface TeamMember {
+  // We only need the index to identify the team member, 
+  // the email will be in the form data.
   index: number
-  email: string
 }
 
 export const Route = createFileRoute('/_logged-out/register/invite-team')({
@@ -26,6 +28,9 @@ const teamMemberSchema = z
 const maxNumberOfTeamMembers = 5
 
 function RegisterInviteTeamComponent() {
+  const payload = useRegisterStore((state) => state.payload);
+  const updatePayload = useRegisterStore((state) => state.updatePayload);
+  
   const methods = useForm();
   
   const navigate = useNavigate()
@@ -39,10 +44,14 @@ function RegisterInviteTeamComponent() {
       return
     }
     
-    setTeamMembers([...teamMembers, { index: teamMembers.length, email: '' }])
+    setTeamMembers([...teamMembers, { index: teamMembers.length }])
   }
   
   const removeTeamMember = (teamMember: TeamMember) => {
+    setErrors({})
+    
+    methods.unregister(`teamMemberEmail-${teamMember.index}`)
+    
     setTeamMembers(teamMembers.filter((member) => member.index !== teamMember.index))
   }
   
@@ -50,6 +59,10 @@ function RegisterInviteTeamComponent() {
     setErrors({})
 
     if (teamMembers.length === 0) {
+      updatePayload({
+        team: [],
+      })
+      
       navigate({ to: '/register/welcome' })
       
       return
@@ -73,13 +86,22 @@ function RegisterInviteTeamComponent() {
       return
     }
     
+    const teamMemberEmails = Object.values(data);
+    
     const emailMismatches: Record<string, string> = {}
     
-    for (const teamMember of teamMembers) {
-      const duplicateEmail = teamMembers.find((member) => member.email === teamMember.email && member.index !== teamMember.index)
+    for (let i = 0; i < teamMemberEmails.length; i++) {
+      const teamMemberEmail = teamMemberEmails[i]
+      
+      
+      if (teamMemberEmail === payload?.email) {
+        emailMismatches[`teamMemberEmail-${i}`] = 'You cannot invite yourself'
+      }
+      
+      const duplicateEmail = teamMemberEmails.find((email, index) => email === teamMemberEmail && index !== i)
       
       if (duplicateEmail) {
-        emailMismatches[`teamMemberEmail-${teamMember.index}`] = 'Team member with this email was already added'
+        emailMismatches[`teamMemberEmail-${i}`] = 'Team member with this email was already added'
       }
     }
     
@@ -88,6 +110,10 @@ function RegisterInviteTeamComponent() {
       
       return
     }
+    
+    updatePayload({
+      team: teamMemberEmails,
+    })
     
     navigate({ to: '/register/welcome' })
   }

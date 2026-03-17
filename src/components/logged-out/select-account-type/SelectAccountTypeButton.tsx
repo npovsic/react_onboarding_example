@@ -6,16 +6,19 @@ export function SelectAccountTypeButton({
   title,
   description,
   icon,
+  onSelect,
 }: {
   to: string;
   title: string;
   description: string;
   icon: React.ReactNode;
+  onSelect: () => void;
 }) {
   return (
     <Link
       to={to}
       className="group flex items-center no-underline! p-8 gap-8 bg-surface rounded-lg shadow-lg hover:bg-surface-primary hover:ring-1 hover:ring-primary transition-all duration-150 outline-none focus-visible:bg-surface-primary focus-visible:ring-1 focus-visible:ring-primary"
+      onClick={onSelect}
     >
       {icon}
 

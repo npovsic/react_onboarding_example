@@ -5,7 +5,9 @@ import { FormTextInput } from "#/components/common/inputs/FormTextInput";
 import { InfoSafelySecured } from "#/components/logged-out/InfoSafelySecured";
 import { LoggedOutShell } from "#/components/logged-out/LoggedOutShell";
 import { OnboardingHeader } from "#/components/logged-out/OnboardingHeader";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useRegisterStore } from "#/state/registration/registrationStore";
+import { RegistrationAccountType } from "#/types/data/registration";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { FormProvider, useForm, type FieldValues } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +25,9 @@ const registerAccountSchema = z.object({
 
 
 function RegisterAccountComponent() {
+  const payload = useRegisterStore((state) => state.payload);
+  const updatePayload = useRegisterStore((state) => state.updatePayload);
+  
   const methods = useForm();
   
   const navigate = useNavigate()
@@ -49,6 +54,13 @@ function RegisterAccountComponent() {
       
       return
     }
+    
+    updatePayload({
+      name: data.fullName,
+      email: data.email,
+      password: data.password,
+      terms: data.termsOfService,
+    })
 
     navigate({ to: '/register/complete-profile' })
   }
@@ -63,7 +75,7 @@ function RegisterAccountComponent() {
           title="Personal Information"
         />
       }
-      title="Register Individual Account"
+      title={payload?.accountType === RegistrationAccountType.INDIVIDUAL ? 'Register Individual Account' : 'Register Business Account'}
       description="Create an account to get started."
     >
       <FormProvider {...methods}>
