@@ -1,8 +1,14 @@
 import type { RegistrationPayload } from "#/types/data/registration";
 
 class ApiService {
+    #baseUrl: string;
+
+    constructor(baseUrl: string) {
+        this.#baseUrl = baseUrl;
+    }
+
     async register(payload: RegistrationPayload) {
-        const response = await fetch('/api/register', {
+        const response = await fetch(`${this.#baseUrl}/api/register`, {
             method: 'POST',
             body: JSON.stringify(payload),
         })
@@ -19,4 +25,4 @@ class ApiService {
     }
 }
 
-export default new ApiService()
+export default ApiService;

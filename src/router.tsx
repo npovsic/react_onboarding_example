@@ -9,7 +9,7 @@ export function getRouter() {
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
     context: {
-      api: ApiService,
+      api: new ApiService('http://localhost:3001'),
     },
   })
 

@@ -4,13 +4,35 @@ import { FormTextInput } from "#/components/common/inputs/FormTextInput";
 import { InfoSafelySecured } from "#/components/logged-out/InfoSafelySecured";
 import { LoggedOutShell } from "#/components/logged-out/LoggedOutShell";
 import { OnboardingHeader } from "#/components/logged-out/OnboardingHeader";
-import { useRegisterStore } from "#/state/registration/registrationStore";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { FormProvider, useForm, type FieldValues } from "react-hook-form";
 import { z } from "zod";
+import { useStore } from "zustand";
 
 export const Route = createFileRoute("/_logged-out/register/complete-profile")({
+  beforeLoad: async ({ context }) => {
+    const registrationStore = context.registrationStore.getState();
+    
+    const payload = registrationStore.payload;
+
+    if (
+      !payload?.accountType ||
+      !payload.name ||
+      !payload.email ||
+      !payload.password ||
+      !payload.terms
+    ) {
+      // If any of the required fields that should already be set here are missing, 
+      // we redirect to the register page.
+      
+      registrationStore.replacePayload({});
+      
+      throw redirect({ to: "/register" });
+    }
+
+    return payload;
+  },
   component: RegisterCompleteProfileComponent,
 });
 
@@ -21,7 +43,9 @@ const registerIndividualSchema = z.object({
 
 
 function RegisterCompleteProfileComponent() {
-  const updatePayload = useRegisterStore((state) => state.updatePayload);
+  const { registrationStore } = Route.useRouteContext();
+  
+  const updatePayload = useStore(registrationStore, (state) => state.updatePayload);
   
   const methods = useForm();
   

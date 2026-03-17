@@ -5,14 +5,31 @@ import { FormTextInput } from "#/components/common/inputs/FormTextInput";
 import { InfoSafelySecured } from "#/components/logged-out/InfoSafelySecured";
 import { LoggedOutShell } from "#/components/logged-out/LoggedOutShell";
 import { OnboardingHeader } from "#/components/logged-out/OnboardingHeader";
-import { useRegisterStore } from "#/state/registration/registrationStore";
 import { RegistrationAccountType } from "#/types/data/registration";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { FormProvider, useForm, type FieldValues } from "react-hook-form";
 import { z } from "zod";
+import { useStore } from "zustand";
 
 export const Route = createFileRoute("/_logged-out/register/account")({
+  beforeLoad: async ({ context }) => {
+    const registrationStore = context.registrationStore.getState();
+    
+    const payload = registrationStore.payload;
+
+    if (
+      !payload?.accountType
+    ) {
+      // IF the account type is not set, we redirect to the register page.
+      
+      registrationStore.replacePayload({});
+      
+      throw redirect({ to: "/register" });
+    }
+
+    return payload;
+  },
   component: RegisterAccountComponent,
 });
 
@@ -25,8 +42,10 @@ const registerAccountSchema = z.object({
 
 
 function RegisterAccountComponent() {
-  const payload = useRegisterStore((state) => state.payload);
-  const updatePayload = useRegisterStore((state) => state.updatePayload);
+  const { registrationStore } = Route.useRouteContext();
+  
+  const payload = useStore(registrationStore, (state) => state.payload);
+  const updatePayload = useStore(registrationStore, (state) => state.updatePayload);
   
   const methods = useForm();
   

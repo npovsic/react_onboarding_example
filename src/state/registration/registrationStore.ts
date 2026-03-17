@@ -1,6 +1,5 @@
 import type { RegistrationPayload } from '#/types/data/registration';
-import { createContext, useContext } from 'react';
-import { createStore, useStore } from 'zustand';
+import { createStore } from 'zustand';
 
 interface RegistrationState {
     // The payload for the registration.
@@ -11,18 +10,12 @@ interface RegistrationState {
     updatePayload: (payload: Partial<RegistrationPayload>) => void;
 }
 
-export const createRegistrationStore = createStore<RegistrationState>()((set) => ({
+export type RegistrationStore = ReturnType<typeof createRegistrationStore>;
+
+export const createRegistrationStore = () => {
+  return createStore<RegistrationState>()((set) => ({
     payload: {},
     replacePayload: (payload) => set({ payload }),
     updatePayload: (payload) => set((state) => ({ payload: { ...state.payload, ...payload } })),
 }));
-
-export const RegistrationContext = createContext<typeof createRegistrationStore | null>(null);
-
-export function useRegisterStore<T>(selector: (state: RegistrationState) => T): T {
-    const store = useContext(RegistrationContext);
-    
-    if (!store) throw new Error('useRegistrationStore must be used within RegistrationContextProvider');
-    
-    return useStore(store, selector);
-  }
+};

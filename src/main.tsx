@@ -8,7 +8,7 @@ const router = createRouter({
   defaultPreload: 'intent',
   scrollRestoration: true,
   context: {
-    api: ApiService,
+    api: new ApiService('http://localhost:3001'),
   },
 })
 

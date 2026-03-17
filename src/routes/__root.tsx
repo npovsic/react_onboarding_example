@@ -4,10 +4,10 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import '../styles.css'
 import AuthenticationUtil from '#/utils/authentication'
-import type ApiService from '#/services/api'
+import ApiService from '#/services/api'
 
 interface RouterContext {
-  api: ApiService
+  api:  ApiService
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({

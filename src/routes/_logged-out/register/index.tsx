@@ -2,16 +2,18 @@ import { SvgBusinessAccountType } from "#/components/common/svgs/SvgBusinessAcco
 import { SvgIndividualAccountType } from "#/components/common/svgs/SvgIndividualAccountType";
 import { LoggedOutShell } from "#/components/logged-out/LoggedOutShell";
 import { SelectAccountTypeButton } from "#/components/logged-out/select-account-type/SelectAccountTypeButton";
-import { useRegisterStore } from "#/state/registration/registrationStore";
 import { RegistrationAccountType } from "#/types/data/registration";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useStore } from "zustand";
 
 export const Route = createFileRoute("/_logged-out/register/")({
   component: RegisterSelectAccountTypeComponent,
 });
 
 function RegisterSelectAccountTypeComponent() {
-  const replacePayload = useRegisterStore((state) => state.replacePayload);
+  const { registrationStore } = Route.useRouteContext();
+  
+  const replacePayload = useStore(registrationStore, (state) => state.replacePayload);
   
   return (
     <LoggedOutShell
