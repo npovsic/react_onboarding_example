@@ -1,13 +1,11 @@
 import { PrimaryButton } from '#/components/common/buttons/PrimaryButton'
 import { IconAdd } from '#/components/common/icons/IconAdd'
-import { IconChevronLeft } from '#/components/common/icons/IconChevronLeft'
 import { IconDelete } from '#/components/common/icons/IconDelete'
-import { IconLock } from '#/components/common/icons/IconLock'
 import { FormTextInput } from '#/components/common/inputs/FormTextInput'
 import { InfoSafelySecured } from '#/components/logged-out/InfoSafelySecured'
 import { LoggedOutShell } from '#/components/logged-out/LoggedOutShell'
 import { OnboardingHeader } from '#/components/logged-out/OnboardingHeader'
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { FormProvider, useForm, type FieldValues } from "react-hook-form";
 import { z } from "zod";
@@ -88,7 +86,7 @@ function RegisterInviteTeamComponent() {
           )}
           
           {teamMembers.map((teamMember) => (
-            <div className="flex items-center gap-2">
+            <div key={teamMember} className="flex items-center gap-2">
               <div key={teamMember} className="min-w-0 grow flex items-center gap-2 bg-surface rounded-lg p-4 border border-primary shadow-lg text-sm">
                 <p className="text-on-background">{teamMember}</p>
               </div>
@@ -113,7 +111,7 @@ function RegisterInviteTeamComponent() {
           </button>
 
           <PrimaryButton type="button" className="w-full mt-4" onClick={() => navigate({ to: '/register/welcome' })}>
-            {teamMembers.length > 0 ? 'Save & Continue' : 'Continue without team'}
+            {teamMembers.length > 0 ? 'Save & Finish' : 'Finish without a team'}
           </PrimaryButton>
           
           <InfoSafelySecured />

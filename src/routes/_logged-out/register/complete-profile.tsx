@@ -85,7 +85,7 @@ function RegisterCompleteProfileComponent() {
           />
 
           <PrimaryButton type="submit" className="w-full mt-4">
-            Save & Continue
+            Continue
           </PrimaryButton>
 
           <InfoSafelySecured />

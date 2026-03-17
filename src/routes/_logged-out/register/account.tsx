@@ -96,7 +96,7 @@ function RegisterAccountComponent() {
           />
 
           <PrimaryButton type="submit" className="w-full mt-4">
-            Register Account
+            Continue
           </PrimaryButton>
           
           <InfoSafelySecured />
