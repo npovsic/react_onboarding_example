@@ -7,9 +7,13 @@ import AuthenticationUtil from '#/utils/authentication'
 
 export const Route = createRootRoute({
   // Always run before the root component is rendered.
-  beforeLoad: async ({ location }) => {
+  beforeLoad: async ({ matches }) => {  
+    const isLoggedOutRoute = matches.find((match) => match.routeId.startsWith('/_logged-out'))
+    
     if (!AuthenticationUtil.isAuthenticated()) {
-      if (location.pathname === '/login' || location.pathname === '/register') {
+      if (isLoggedOutRoute) {
+        // If we are already on a logged out route, we can just return.
+        
         return
       }
       
@@ -17,7 +21,10 @@ export const Route = createRootRoute({
         to: '/login',
       })
     } else {
-      if (location.pathname === '/login' || location.pathname === '/register') {
+      if (isLoggedOutRoute) {
+        // If we are on a logged out route and we are authenticated,
+        // we need to redirect to the home page.
+        
         throw redirect({
           to: '/',
         })

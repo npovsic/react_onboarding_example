@@ -19,6 +19,12 @@
   --app-on-background-muted: #8692A6;
   --app-on-background-border: #F5F5F5;
   
+  --app-surface: #FFFFFF;
+  --app-on-surface: #000000;
+  
+  --app-surface-primary: #F5F9FF;
+  --app-on-surface-primary: #000000;
+  
   --app-input-border: #8692A6;
   --app-destructive: #DC2626;
 }
@@ -48,6 +54,12 @@
   --color-on-background-dimmed: var(--app-on-background-dimmed);
   --color-on-background-muted: var(--app-on-background-muted);
   --color-on-background-border: var(--app-on-background-border);
+  
+  --color-surface: var(--app-surface);
+  --color-on-surface: var(--app-on-surface);
+  
+  --color-surface-primary: var(--app-surface-primary);
+  --color-on-surface-primary: var(--app-on-surface-primary);
   
   --color-input-border: var(--app-input-border);
 }

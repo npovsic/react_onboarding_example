@@ -1,5 +1,7 @@
 import { PrimaryButton } from '#/components/common/buttons/PrimaryButton'
+import { FormPasswordInput } from '#/components/common/inputs/FormPasswordInput'
 import { FormTextInput } from '#/components/common/inputs/FormTextInput'
+import { LoggedOutShell } from '#/components/logged-out/LoggedOutShell'
 import AuthenticationUtil from '#/utils/authentication'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
@@ -14,8 +16,6 @@ const loginSchema = z.object({
   username: z.string().min(1, 'Username is required'),
   password: z.string().min(1, 'Password is required'),
 })
-
-type LoginFormValues = z.infer<typeof loginSchema>
 
 function LoginComponent() {
   const methods = useForm();
@@ -51,17 +51,14 @@ function LoginComponent() {
   }
 
   return (
-    <div className="flex flex-col">
+    <LoggedOutShell 
+    header={
       <p className="text-on-background-dimmed self-end">Don't have an account yet? <Link to="/register">Register here</Link></p>
-
-      <div className="flex flex-col max-w-[427px] w-full self-center mt-16 md:mt-32">
-        <h1 className="text-3xl font-bold mb-2">Login</h1>
-
-        <p className="text-base text-on-background-dimmed">Enter your email and password to login.</p>
-
-        <hr className="border-on-background-border my-4" />
-
-        <FormProvider {...methods}>
+    }
+    title="Login"
+    description="Enter your email and password to login."
+    >
+      <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleLogin)} className="flex flex-col gap-4">
             <FormTextInput
               id="username"
@@ -71,11 +68,10 @@ function LoginComponent() {
               required
             />
             
-            <FormTextInput
+            <FormPasswordInput
               id="password"
               label="Password"
               placeholder="Enter your password"
-              type="password"
               error={errors.password}
               required
             />
@@ -83,7 +79,6 @@ function LoginComponent() {
             <PrimaryButton type="submit" className="w-full mt-4">Login</PrimaryButton>
           </form>
         </FormProvider>
-      </div>
-    </div>
+    </LoggedOutShell>
   )
 }

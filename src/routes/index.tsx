@@ -1,3 +1,4 @@
+import { PrimaryButton } from '#/components/common/buttons/PrimaryButton';
 import AuthenticationUtil from '#/utils/authentication'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
@@ -15,10 +16,10 @@ function RouteComponent() {
   }
 
   return (
-    <>
-      <div>I am logged in.</div>
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4">
+      <div className="text-on-background text-2xl font-bold">I am logged in.</div>
       
-      <button onClick={handleLogout}>Logout</button>
-    </>
+      <PrimaryButton onClick={handleLogout}>Logout</PrimaryButton>
+    </div>
   )
 }

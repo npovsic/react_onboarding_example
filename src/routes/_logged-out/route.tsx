@@ -13,7 +13,7 @@ function RouteComponent() {
       </div>
       
       <div className="onboarding-shell min-w-0 grow py-16 px-8 xl:py-24 xl:px-32">
-        <div className="border min-h-full">
+        <div className="min-h-full flex flex-col">
           <Outlet />
         </div>
       </div>
