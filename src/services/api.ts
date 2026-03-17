@@ -7,21 +7,24 @@ class ApiService {
         this.#baseUrl = baseUrl;
     }
 
+    // Just mocked for now.
     async register(payload: RegistrationPayload) {
-        const response = await fetch(`${this.#baseUrl}/api/register`, {
-            method: 'POST',
-            body: JSON.stringify(payload),
-        })
-
-        if (!response.ok) {
-            // throw new Error('Failed to register')
-            
+        await new Promise(resolve => setTimeout(resolve, 4000));
+        
+        try {
+            await fetch(`${this.#baseUrl}/api/register`, {
+                method: 'POST',
+                body: JSON.stringify(payload),
+            })
+    
+            return {
+                success: true,
+            }
+        } catch (error) {
             return {
                 success: true,
             }
         }
-
-        return response.json()
     }
 }
 

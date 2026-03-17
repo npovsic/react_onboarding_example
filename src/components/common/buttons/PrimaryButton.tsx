@@ -17,7 +17,7 @@ export function PrimaryButton({
     <button
       type={type}
       onClick={onClick}
-      className={`rounded-lg bg-primary px-4 py-4 text-base font-medium text-on-primary hover:opacity-90 active:opacity-95 ${className}`}
+      className={`rounded-lg bg-primary px-4 py-4 text-base font-medium text-on-primary hover:opacity-90 active:opacity-95 active:scale-99 transition-all duration-150 ${className}`}
     >
       {children}
     </button>

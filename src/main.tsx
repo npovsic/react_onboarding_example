@@ -7,6 +7,17 @@ const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
   scrollRestoration: true,
+  defaultViewTransition: {
+    types: ({fromLocation}) => {
+      if (!fromLocation) {
+        // This is the first render, so we don't want to transition.
+        
+        return false;
+      }
+      
+      return ['fade'];
+    },
+  },
   context: {
     api: new ApiService('http://localhost:3001'),
   },
