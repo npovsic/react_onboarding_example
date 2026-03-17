@@ -13,6 +13,9 @@
   --app-secondary: #00DAF7;
   --app-on-secondary: #000000;
   
+  --app-tertiary: #DE6944;
+  --app-on-tertiary: #000000;
+  
   --app-error: #DC2626;
   --app-on-error: #FFFFFF;
   
@@ -51,6 +54,9 @@
   
   --color-secondary: var(--app-secondary);
   --color-on-secondary: var(--app-on-secondary);
+  
+  --color-tertiary: var(--app-tertiary);
+  --color-on-tertiary: var(--app-on-tertiary);
   
   --color-error: var(--app-error);
   --color-on-error: var(--app-on-error);

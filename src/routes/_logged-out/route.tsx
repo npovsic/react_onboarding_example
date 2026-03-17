@@ -2,6 +2,7 @@ import { createFileRoute, Outlet } from '@tanstack/react-router'
 import styles from './route.module.css'
 import { IconQuote } from '#/components/common/icons/IconQuote'
 import { IconQuoteEnd } from '#/components/common/icons/IconQuoteEnd'
+import { SvgOnboardingDots } from '#/components/common/svgs/SvgOnboardingDots'
 
 export const Route = createFileRoute('/_logged-out')({
   component: LoggedOutLayoutComponent,
@@ -13,6 +14,8 @@ function LoggedOutLayoutComponent() {
     <main className="flex min-h-screen">
       <div className={`${styles.onboardingImage} bg-primary w-[45vw] hidden md:flex items-center justify-center py-16 px-8 xl:py-24 xl:px-32`}>
         <div className="flex flex-col relative z-10 max-w-[427px]">
+          <SvgOnboardingDots className="w-[60px] h-[56px] text-tertiary self-end mx-8 mb-16" />
+          
           <IconQuote className="w-[24px] h-[24px] mb-6 text-secondary" />
           
           <p className="text-on-primary text-xl">
