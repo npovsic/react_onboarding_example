@@ -12,7 +12,7 @@ function RegisterSelectAccountTypeComponent() {
   return (
     <LoggedOutShell
     header={
-      <p className="text-on-background-dimmed self-end">Already have an account? <Link to="/login">Login here</Link></p>
+      <p className="text-on-background-dimmed self-end">Already have an account? <Link to="/login" className="text-primary no-underline hover:underline">Login here</Link></p>
     }
     title="Join Us!"
     description="To begin this journey, tell us what type of account you’d be opening."

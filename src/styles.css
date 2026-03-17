@@ -10,6 +10,9 @@
   --app-primary: #1565D8;
   --app-on-primary: #FFFFFF;
   
+  --app-secondary: #00DAF7;
+  --app-on-secondary: #000000;
+  
   --app-error: #DC2626;
   --app-on-error: #FFFFFF;
   
@@ -45,6 +48,9 @@
   
   --color-primary: var(--app-primary);
   --color-on-primary: var(--app-on-primary);
+  
+  --color-secondary: var(--app-secondary);
+  --color-on-secondary: var(--app-on-secondary);
   
   --color-error: var(--app-error);
   --color-on-error: var(--app-on-error);
@@ -90,9 +96,4 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  color: var(--app-primary);
-  text-decoration: underline;
 }

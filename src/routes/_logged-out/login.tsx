@@ -53,7 +53,7 @@ function LoginComponent() {
   return (
     <LoggedOutShell 
     header={
-      <p className="text-on-background-dimmed self-end">Don't have an account yet? <Link to="/register">Register here</Link></p>
+      <p className="text-on-background-dimmed self-end">Don't have an account yet? <Link to="/register" className="text-primary no-underline hover:underline">Register here</Link></p>
     }
     title="Login"
     description="Enter your email and password to login."

@@ -7,7 +7,7 @@ export function SvgSuccess({ className = '', size = 158 }: { className?: string,
       <rect opacity="0.5" x="114.287" y="106.821" width="36.5935" height="36.5935" rx="8" fill="currentColor"/>
       <circle cx="83.4766" cy="78.3755" r="60" fill="currentColor"/>
       <g filter="url(#filter0_d_1_382)">
-      <path d="M60.7598 81.6202L73.7403 94.6007L106.192 62.1494" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M60.7598 81.6202L73.7403 94.6007L106.192 62.1494" stroke="white" strokeWidth="8" stroke-linecap="round" stroke-linejoin="round"/>
       </g>
       <defs>
       <filter id="filter0_d_1_382" x="26.7598" y="32.1494" width="113.432" height="100.451" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

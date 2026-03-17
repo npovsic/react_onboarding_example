@@ -1,15 +1,28 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
+import styles from './route.module.css'
+import { IconQuote } from '#/components/common/icons/IconQuote'
+import { IconQuoteEnd } from '#/components/common/icons/IconQuoteEnd'
 
 export const Route = createFileRoute('/_logged-out')({
-  component: RouteComponent,
+  component: LoggedOutLayoutComponent,
 })
 
 // This is basically the layout for the logged out routes which are all the same.
-function RouteComponent() {
+function LoggedOutLayoutComponent() {
   return (
     <main className="flex min-h-screen">
-      <div className="w-[45vw] bg-blue-500 hidden md:block">
-        
+      <div className={`${styles.onboardingImage} bg-primary w-[45vw] hidden md:flex items-center justify-center py-16 px-8 xl:py-24 xl:px-32`}>
+        <div className="flex flex-col relative z-10 max-w-[427px]">
+          <IconQuote className="w-[24px] h-[24px] mb-6 text-secondary" />
+          
+          <p className="text-on-primary text-xl">
+            The passage experienced a surge in popularity during the 1960s when Letraset used 
+            it on their dry-transfer sheets, and again during the 90s as desktop publishers 
+            bundled the text with their software.
+          </p>
+          
+          <IconQuoteEnd className="w-[32px] h-[32px] mt-16 text-on-primary self-end" />
+        </div>
       </div>
       
       <div className="onboarding-shell min-w-0 grow py-16 px-8 xl:py-24 xl:px-32">

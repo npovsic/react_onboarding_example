@@ -27,7 +27,7 @@ function RegisterWelcomeComponent() {
       </p>
       
       <PrimaryButton className="w-full mt-4" onClick={() => enterApp()}>
-        Continue
+        Finish
       </PrimaryButton>
     </div>
   )
