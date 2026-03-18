@@ -26,6 +26,16 @@ To build this application for production:
 npm run build
 ```
 
+# Deploying to GitHub Pages
+
+To deploy this application to GitHub Pages:
+
+```bash
+npm run deploy
+```
+
+This will build the application and deploy it to the `gh-pages` branch of the repository.
+
 ## Styling
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
