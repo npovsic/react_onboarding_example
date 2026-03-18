@@ -1,5 +1,7 @@
 {
   "name": "react-onboarding",
+  "version": "1.0.0",
+  "homepage": "https://npovsic.github.io/react_onboarding_example",
   "private": true,
   "type": "module",
   "imports": {
@@ -9,7 +11,9 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -27,7 +31,7 @@
   },
   "devDependencies": {
     "@eslint/css": "^1.0.0",
-    "@eslint/js": "^10.0.1",
+    "@eslint/js": "^9.39.4",
     "@tailwindcss/typography": "^0.5.16",
     "@tanstack/devtools-vite": "latest",
     "@tanstack/router-plugin": "latest",
@@ -43,6 +47,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react": "^7.37.5",
+    "gh-pages": "^6.3.0",
     "globals": "^17.4.0",
     "jsdom": "^28.1.0",
     "prettier": "^3.8.1",
