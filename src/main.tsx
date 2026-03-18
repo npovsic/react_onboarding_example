@@ -4,6 +4,7 @@ import { routeTree } from './routeTree.gen'
 import ApiService from './services/api'
 
 const router = createRouter({
+  basepath: import.meta.env.VITE_BASEPATH ?? '/',
   routeTree,
   defaultPreload: 'intent',
   scrollRestoration: true,

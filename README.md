@@ -40,7 +40,6 @@ This will build the application and deploy it to the `gh-pages` branch of the re
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
 
-
 ## Routing
 
 This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.

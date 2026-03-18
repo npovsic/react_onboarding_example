@@ -4,6 +4,7 @@ import ApiService from './services/api'
 
 export function getRouter() {
   const router = createTanStackRouter({
+    basepath: import.meta.env.VITE_BASEPATH ?? '/',
     routeTree,
     scrollRestoration: true,
     defaultPreload: 'intent',
