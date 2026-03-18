@@ -1,1 +1,0 @@
-import{j as i}from"./index-ZnEqtG7Z.js";function n({type:t="button",onClick:a,children:o,className:r=""}){return i.jsx("button",{type:t,onClick:a,className:`rounded-lg bg-primary px-4 py-4 text-base font-medium text-on-primary hover:opacity-90 active:opacity-95 active:scale-99 transition-all duration-150 ${r}`,children:o})}export{n as P};

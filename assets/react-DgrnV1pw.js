@@ -1,0 +1,1 @@
+import{d as u}from"./index-BeOZcIIs.js";const s=t=>t;function c(t,e=s){const n=u.useSyncExternalStore(t.subscribe,u.useCallback(()=>e(t.getState()),[t,e]),u.useCallback(()=>e(t.getInitialState()),[t,e]));return u.useDebugValue(n),n}export{c as u};
